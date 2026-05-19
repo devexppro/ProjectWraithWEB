@@ -52,16 +52,6 @@
             transform: translate(-50%, -50%);
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9997;
-            opacity: 0.4;
-        }
-
         nav {
             position: fixed;
             top: 0;
@@ -137,18 +127,7 @@
             cursor: none;
         }
 
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #ffd700, #b8860b);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .nav-cta:hover::before { opacity: 1; }
         .nav-cta:hover { box-shadow: 0 0 30px rgba(212,175,55,0.4); transform: translateY(-2px); }
-        .nav-cta span { position: relative; z-index: 1; }
 
         .hero {
             position: relative;
@@ -165,7 +144,7 @@
         .hero-bg-img {
             position: absolute;
             inset: 0;
-            background-image: url('https://kommodo.ai/i/jx3zCrPDLiLyEU5gjkyN');
+            background-image: url('https://i.imgur.com/nijBmrl.png');
             background-size: cover;
             background-position: center 25%;
             background-repeat: no-repeat;
@@ -259,6 +238,45 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        /* BIG GOLD DOWNLOAD BUTTON */
+        .btn-hero-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.4rem 4rem;
+            background: linear-gradient(135deg, #b8860b, #ffd700);
+            color: #000;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 60px rgba(212,175,55,0.35), 0 0 120px rgba(212,175,55,0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-hero-download::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-hero-download:hover::after { left: 100%; }
+        .btn-hero-download:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 60px rgba(212,175,55,0.5), 0 0 120px rgba(212,175,55,0.2);
         }
 
         .btn-primary {
@@ -631,7 +649,7 @@
             <li><a href="#assets" class="smooth-scroll">Assets</a></li>
             <li><a href="#download" class="smooth-scroll">Download</a></li>
         </ul>
-        <a href="https://cdn.cbn.lol/12.41" class="nav-cta"><span>Get Build</span></a>
+        <a href="https://cdn.cbn.lol/12.41" class="nav-cta">Get Build</a>
     </nav>
 
     <section class="hero" id="home">
@@ -649,11 +667,16 @@
                 <span>WRAITH</span>
             </h1>
             <p class="hero-sub" id="heroSub">Private Community Build &nbsp;·&nbsp; Fortnite Chapter 2 Season 2</p>
-            <div class="hero-buttons" id="heroButtons">
-                <a href="https://cdn.cbn.lol/12.41" class="btn-primary">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                    Download Build
+
+            <!-- BIG GOLD DOWNLOAD BUTTON -->
+            <div id="heroBigBtn">
+                <a href="https://cdn.cbn.lol/12.41" class="btn-hero-download">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    Download Build v12.41
                 </a>
+            </div>
+
+            <div class="hero-buttons" id="heroButtons">
                 <a href="#install" class="btn-ghost smooth-scroll">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
                     How to Install
@@ -756,8 +779,8 @@
             <div class="h-accent" style="margin: 0 auto 2rem;"></div>
             <h2 class="cta-title">Ready to Play?</h2>
             <p class="cta-sub">Download the build and jump in. It's free, always.</p>
-            <a href="https://cdn.cbn.lol/12.41" class="btn-primary" style="font-size:0.85rem; padding: 1.3rem 4rem;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <a href="https://cdn.cbn.lol/12.41" class="btn-hero-download">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                 Download v12.41
             </a>
         </div>
@@ -775,7 +798,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // CUSTOM CURSOR
+        // CURSOR
         const cursor = document.getElementById('cursor');
         const ring = document.getElementById('cursorRing');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
@@ -810,11 +833,24 @@
                 const target = document.querySelector(link.getAttribute('href'));
                 if (!target) return;
                 const offset = target.getBoundingClientRect().top + window.scrollY - 80;
-                gsap.to(window, {
-                    scrollTo: offset,
-                    duration: 1.2,
-                    ease: 'power3.inOut'
-                });
+                const start = window.scrollY;
+                const distance = offset - start;
+                const duration = 1200;
+                let startTime = null;
+
+                function easeInOutCubic(t) {
+                    return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+                }
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    window.scrollTo(0, start + distance * easeInOutCubic(progress));
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+
+                requestAnimationFrame(step);
             });
         });
 
@@ -834,6 +870,7 @@
         tl.from('#heroEyebrow', { duration: 1, opacity: 0, y: 20, ease: 'power3.out' })
           .from('#heroTitle span', { duration: 1.2, opacity: 0, y: 60, stagger: 0.12, ease: 'power4.out' }, '-=0.6')
           .from('#heroSub', { duration: 0.9, opacity: 0, y: 20, ease: 'power3.out' }, '-=0.5')
+          .from('#heroBigBtn', { duration: 0.9, opacity: 0, y: 25, ease: 'power3.out' }, '-=0.4')
           .from('#heroButtons > *', { duration: 0.8, opacity: 0, y: 20, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
           .from('.scroll-indicator', { duration: 0.8, opacity: 0, ease: 'power2.out' }, '-=0.2');
 
@@ -869,20 +906,6 @@
             card.addEventListener('mouseleave', () => {
                 gsap.to(card, { rotateY: 0, duration: 0.5, ease: 'power2.out' });
             });
-        });
-
-        // GSAP ScrollTo plugin polyfill
-        gsap.registerPlugin({
-            name: "scrollTo",
-            init(target, value) {
-                this.target = target === window ? document.documentElement : target;
-                this.property = "scrollTop";
-                this.start = this.target.scrollTop;
-                this.end = value;
-            },
-            render(progress) {
-                this.target.scrollTop = this.start + (this.end - this.start) * progress;
-            }
         });
     </script>
 </body>
