@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,8 +19,7 @@
             --border: rgba(255,255,255,0.06);
         }
 
-        html { scroll-behavior: smooth; }
-
+        html { scroll-behavior: auto; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -32,7 +30,6 @@
             cursor: none;
         }
 
-        /* CUSTOM CURSOR */
         .cursor {
             width: 8px;
             height: 8px;
@@ -42,7 +39,6 @@
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
         }
 
         .cursor-ring {
@@ -56,14 +52,6 @@
             transform: translate(-50%, -50%);
         }
 
-        body:has(a:hover) .cursor,
-        body:has(button:hover) .cursor {
-            width: 14px;
-            height: 14px;
-            background: var(--gold-light);
-        }
-
-        /* NOISE OVERLAY */
         body::before {
             content: '';
             position: fixed;
@@ -74,7 +62,6 @@
             opacity: 0.4;
         }
 
-        /* NAV */
         nav {
             position: fixed;
             top: 0;
@@ -118,6 +105,7 @@
             text-decoration: none;
             transition: color 0.3s;
             position: relative;
+            cursor: none;
         }
 
         .nav-links a::after {
@@ -146,6 +134,7 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            cursor: none;
         }
 
         .nav-cta::before {
@@ -161,7 +150,6 @@
         .nav-cta:hover { box-shadow: 0 0 30px rgba(212,175,55,0.4); transform: translateY(-2px); }
         .nav-cta span { position: relative; z-index: 1; }
 
-        /* HERO */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -177,7 +165,7 @@
         .hero-bg-img {
             position: absolute;
             inset: 0;
-            background-image: url('https://raw.githubusercontent.com/devexppro/ProjectWraithWEB/main/Background.png');
+            background-image: url('https://kommodo.ai/i/jx3zCrPDLiLyEU5gjkyN');
             background-size: cover;
             background-position: center 25%;
             background-repeat: no-repeat;
@@ -255,13 +243,7 @@
             margin-bottom: 2rem;
         }
 
-        .hero-title span {
-            display: block;
-            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .hero-title span { display: block; }
 
         .hero-sub {
             font-size: 0.85rem;
@@ -295,6 +277,7 @@
             box-shadow: 0 0 40px rgba(212,175,55,0.25);
             position: relative;
             overflow: hidden;
+            cursor: none;
         }
 
         .btn-primary::after {
@@ -325,6 +308,7 @@
             text-decoration: none;
             border: 1px solid rgba(255,255,255,0.12);
             transition: all 0.3s;
+            cursor: none;
         }
 
         .btn-ghost:hover {
@@ -333,7 +317,6 @@
             transform: translateY(-3px);
         }
 
-        /* SCROLL INDICATOR */
         .scroll-indicator {
             position: absolute;
             bottom: 2.5rem;
@@ -367,7 +350,6 @@
             100% { transform: scaleY(0); transform-origin: bottom; }
         }
 
-        /* STATS */
         .stats-section {
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -380,7 +362,6 @@
             padding: 3rem 2rem;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0;
         }
 
         .stat-item {
@@ -409,37 +390,19 @@
             color: rgba(255,255,255,0.25);
         }
 
-        /* DIVIDER */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .divider-text {
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-
-        /* INSTALL SECTION */
         .install-section {
             max-width: 860px;
             margin: 0 auto;
             padding: 8rem 2rem;
         }
 
-        .section-header {
-            margin-bottom: 4rem;
+        .section-header { margin-bottom: 4rem; }
+
+        .h-accent {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), transparent);
+            margin-bottom: 2rem;
         }
 
         .section-tag {
@@ -460,11 +423,9 @@
             line-height: 1;
         }
 
-        /* STEP CARDS */
         .step-card {
             display: grid;
             grid-template-columns: 80px 1fr;
-            gap: 0;
             background: var(--surface);
             border: 1px solid var(--border);
             margin-bottom: 1px;
@@ -509,7 +470,6 @@
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
-            letter-spacing: -0.01em;
         }
 
         .step-text {
@@ -539,6 +499,7 @@
             text-decoration: none;
             transition: all 0.25s;
             background: rgba(255,255,255,0.02);
+            cursor: none;
         }
 
         .step-link:hover {
@@ -547,7 +508,6 @@
             background: var(--gold-dim);
         }
 
-        /* SECURITY */
         .security-block {
             margin-top: 1px;
             padding: 2rem 2.5rem;
@@ -574,7 +534,6 @@
             color: rgba(255,255,255,0.35);
         }
 
-        /* CTA SECTION */
         .cta-section {
             padding: 8rem 2rem;
             text-align: center;
@@ -611,7 +570,6 @@
             position: relative;
         }
 
-        /* FOOTER */
         footer {
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -659,34 +617,23 @@
             padding: 0.15rem 0.45rem;
             font-size: 0.82em;
         }
-
-        /* HORIZONTAL LINE ACCENT */
-        .h-accent {
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(to right, var(--gold), transparent);
-            margin-bottom: 2rem;
-        }
     </style>
 </head>
 <body>
 
-    <!-- CURSOR -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- NAV -->
     <nav id="navbar">
         <a href="#" class="nav-logo">PROJECT WRAITH</a>
         <ul class="nav-links">
-            <li><a href="#install">Install</a></li>
-            <li><a href="#assets">Assets</a></li>
-            <li><a href="#download">Download</a></li>
+            <li><a href="#install" class="smooth-scroll">Install</a></li>
+            <li><a href="#assets" class="smooth-scroll">Assets</a></li>
+            <li><a href="#download" class="smooth-scroll">Download</a></li>
         </ul>
         <a href="https://cdn.cbn.lol/12.41" class="nav-cta"><span>Get Build</span></a>
     </nav>
 
-    <!-- HERO -->
     <section class="hero" id="home">
         <div class="hero-bg-img" id="heroBg"></div>
         <div class="hero-gradient"></div>
@@ -707,7 +654,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                     Download Build
                 </a>
-                <a href="#install" class="btn-ghost">
+                <a href="#install" class="btn-ghost smooth-scroll">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
                     How to Install
                 </a>
@@ -720,7 +667,6 @@
         </div>
     </section>
 
-    <!-- STATS -->
     <div class="stats-section" id="stats">
         <div class="stats-inner">
             <div class="stat-item">
@@ -742,7 +688,6 @@
         </div>
     </div>
 
-    <!-- INSTALL -->
     <section class="install-section" id="install">
         <div class="section-header reveal">
             <div class="h-accent"></div>
@@ -806,7 +751,6 @@
         </div>
     </section>
 
-    <!-- CTA -->
     <section class="cta-section" id="download">
         <div class="reveal">
             <div class="h-accent" style="margin: 0 auto 2rem;"></div>
@@ -819,7 +763,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-left">
             <div class="footer-logo">PROJECT WRAITH</div>
@@ -832,7 +775,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // CURSOR
+        // CUSTOM CURSOR
         const cursor = document.getElementById('cursor');
         const ring = document.getElementById('cursorRing');
         let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
@@ -840,26 +783,50 @@
         document.addEventListener('mousemove', e => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1 });
+            gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.08, ease: 'none' });
         });
 
         gsap.ticker.add(() => {
-            ringX += (mouseX - ringX) * 0.12;
-            ringY += (mouseY - ringY) * 0.12;
+            ringX += (mouseX - ringX) * 0.1;
+            ringY += (mouseY - ringY) * 0.1;
             gsap.set(ring, { x: ringX, y: ringY });
         });
 
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 2.5, duration: 0.3 });
+                gsap.to(ring, { scale: 1.5, opacity: 0.3, duration: 0.3 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, duration: 0.3 });
+                gsap.to(ring, { scale: 1, opacity: 1, duration: 0.3 });
+            });
+        });
+
+        // SMOOTH SCROLL
+        document.querySelectorAll('.smooth-scroll').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (!target) return;
+                const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+                gsap.to(window, {
+                    scrollTo: offset,
+                    duration: 1.2,
+                    ease: 'power3.inOut'
+                });
+            });
+        });
+
         // NAV SCROLL
-        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // HERO PARALLAX
-        const heroBg = document.getElementById('heroBg');
         window.addEventListener('scroll', () => {
-            const y = window.scrollY;
-            heroBg.style.transform = `scale(1.05) translateY(${y * 0.3}px)`;
+            document.getElementById('heroBg').style.transform =
+                `scale(1.05) translateY(${window.scrollY * 0.3}px)`;
         });
 
         // HERO ENTRANCE
@@ -867,14 +834,16 @@
         tl.from('#heroEyebrow', { duration: 1, opacity: 0, y: 20, ease: 'power3.out' })
           .from('#heroTitle span', { duration: 1.2, opacity: 0, y: 60, stagger: 0.12, ease: 'power4.out' }, '-=0.6')
           .from('#heroSub', { duration: 0.9, opacity: 0, y: 20, ease: 'power3.out' }, '-=0.5')
-          .from('#heroButtons > *', { duration: 0.8, opacity: 0, y: 20, stagger: 0.1, ease: 'power3.out' }, '-=0.4');
+          .from('#heroButtons > *', { duration: 0.8, opacity: 0, y: 20, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
+          .from('.scroll-indicator', { duration: 0.8, opacity: 0, ease: 'power2.out' }, '-=0.2');
 
-        // STATS COUNTER
-        gsap.from('#stats', {
+        // STATS
+        gsap.from('.stat-item', {
             scrollTrigger: { trigger: '#stats', start: 'top 85%' },
             opacity: 0,
             y: 30,
-            duration: 0.8,
+            stagger: 0.1,
+            duration: 0.7,
             ease: 'power2.out'
         });
 
@@ -886,11 +855,11 @@
                 opacity: 0,
                 y: 35,
                 ease: 'power3.out',
-                delay: i * 0.05
+                delay: i * 0.04
             });
         });
 
-        // STEP CARDS HOVER TILT
+        // STEP CARD TILT
         document.querySelectorAll('.step-card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -900,6 +869,20 @@
             card.addEventListener('mouseleave', () => {
                 gsap.to(card, { rotateY: 0, duration: 0.5, ease: 'power2.out' });
             });
+        });
+
+        // GSAP ScrollTo plugin polyfill
+        gsap.registerPlugin({
+            name: "scrollTo",
+            init(target, value) {
+                this.target = target === window ? document.documentElement : target;
+                this.property = "scrollTop";
+                this.start = this.target.scrollTop;
+                this.end = value;
+            },
+            render(progress) {
+                this.target.scrollTop = this.start + (this.end - this.start) * progress;
+            }
         });
     </script>
 </body>
