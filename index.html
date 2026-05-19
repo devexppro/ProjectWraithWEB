@@ -6,33 +6,42 @@
     <title>Project Wraith | The Agency Protocol</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --obsidian: #0a0c10; }
         body { background-color: var(--obsidian); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
         .hero-bg { 
-            background: linear-gradient(to bottom, rgba(10,12,16,0.5) 0%, var(--obsidian) 100%), 
+            background: linear-gradient(to bottom, rgba(10,12,16,0.6) 0%, var(--obsidian) 100%), 
             url('background.png'); 
             background-size: cover; 
-            background-position: center 25%; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); }
-        .btn-gold { background: linear-gradient(135deg, #b8860b, #ffd700); color: #000; font-weight: 900; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem !important; line-height: 1; }
+            .btn-gold { padding: 1rem 2rem !important; font-size: 1rem !important; }
+        }
+        
+        .btn-gold { background: linear-gradient(135deg, #b8860b, #ffd700); color: #000; font-weight: 900; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); display: inline-block; padding: 1.5rem 3rem; }
         .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
-        .security-banner { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.05); }
     </style>
 </head>
 <body>
-    <section class="hero-bg min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div id="hero-content">
+
+    <section class="hero-bg">
+        <div id="hero-content" class="text-center p-6">
             <div class="inline-block px-4 py-1 mb-6 text-[10px] uppercase tracking-[0.3em] bg-white/5 border border-white/10 rounded-full">The Agency Protocol | v12.41</div>
             <h1 class="text-7xl md:text-9xl font-black italic tracking-tighter text-white mb-8 drop-shadow-2xl">PROJECT WRAITH</h1>
-            <a href="https://cdn.cbn.lol/12.41" class="btn-gold px-16 py-6 rounded-sm text-2xl uppercase tracking-widest inline-block">Download Build</a>
+            <a href="https://cdn.cbn.lol/12.41" class="btn-gold rounded-sm uppercase tracking-widest">Download Build</a>
         </div>
     </section>
+
     <script>
         gsap.from("#hero-content", { duration: 1.5, opacity: 0, y: 50, ease: "power4.out" });
     </script>
