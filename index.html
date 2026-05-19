@@ -7,76 +7,472 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --obsidian: #0a0c10; }
-        body { background-color: var(--obsidian); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        :root {
+            --gold: #d4af37;
+            --gold-light: #ffd700;
+            --obsidian: #0a0c10;
+            --surface: #111318;
+            --surface2: #16191f;
+            --border: rgba(255,255,255,0.07);
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--obsidian);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* HERO BACKGROUND - fixed */
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(10,12,16,0.5) 0%, var(--obsidian) 100%),
-            url('Background.png');
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('Background.png');
             background-size: cover;
             background-position: center 25%;
             background-repeat: no-repeat;
+            z-index: 0;
         }
 
-        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(10,12,16,0.3) 0%,
+                rgba(10,12,16,0.5) 50%,
+                rgba(10,12,16,1) 100%
+            );
+            z-index: 1;
+        }
 
-        .btn-gold { background: linear-gradient(135deg, #b8860b, #ffd700); color: #000; font-weight: 900; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
 
-        .security-banner { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.05); }
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10,12,16,0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        .nav-download {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.6rem 1.4rem;
+            background: linear-gradient(135deg, #b8860b, #ffd700);
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-download:hover {
+            box-shadow: 0 0 20px rgba(212,175,55,0.5);
+            transform: translateY(-1px);
+        }
+
+        /* BADGE */
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* HERO TITLE */
+        .hero-title {
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+            color: white;
+            text-shadow: 0 0 80px rgba(0,0,0,0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-sub {
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 3rem;
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #b8860b, #ffd700);
+            color: #000;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(212,175,55,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212,175,55,0.5);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.4);
+            color: white;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            padding: 2.5rem 3rem;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item { text-align: center; }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        /* SECTIONS */
+        .section { padding: 6rem 2rem; max-width: 900px; margin: 0 auto; }
+
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover { border-color: rgba(212,175,55,0.3); }
+
+        .card-number {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-text {
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .card-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-link {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .card-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* SECURITY NOTICE */
+        .security-card {
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-left: 3px solid #ef4444;
+            padding: 2rem 2.5rem;
+        }
+
+        .security-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ef4444;
+            margin-bottom: 0.75rem;
+        }
+
+        .security-text {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+        }
+
+        .footer-logo {
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+        }
+
+        .footer-text {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.1em;
+        }
+
+        code {
+            font-family: monospace;
+            color: var(--gold);
+            background: rgba(212,175,55,0.08);
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+            font-size: 0.85em;
+        }
     </style>
 </head>
 <body>
 
-    <section class="hero-bg min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div id="hero-content">
-            <div class="inline-block px-4 py-1 mb-6 text-[10px] uppercase tracking-[0.3em] bg-white/5 border border-white/10 rounded-full">The Agency Protocol | v12.41</div>
-            <h1 class="text-7xl md:text-9xl font-black italic tracking-tighter text-white mb-8 drop-shadow-2xl">PROJECT WRAITH</h1>
-            <a href="https://cdn.cbn.lol/12.41" class="btn-gold px-16 py-6 rounded-sm text-2xl uppercase tracking-widest inline-block">Download Build</a>
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">PROJECT WRAITH</div>
+        <ul class="nav-links">
+            <li><a href="#install">Install</a></li>
+            <li><a href="#assets">Assets</a></li>
+        </ul>
+        <a href="https://cdn.cbn.lol/12.41" class="nav-download">Download v12.41</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-bg">
+        <div class="hero-content">
+            <div class="badge">The Agency Protocol &nbsp;·&nbsp; v12.41</div>
+            <h1 class="hero-title">PROJECT<br>WRAITH</h1>
+            <p class="hero-sub">Private community build &nbsp;·&nbsp; Fortnite Chapter 2 Season 2</p>
+            <div>
+                <a href="https://cdn.cbn.lol/12.41" class="btn-primary">Download Build</a>
+                <a href="#install" class="btn-secondary">How to Install</a>
+            </div>
         </div>
     </section>
 
-    <section id="install" class="py-32 px-6 max-w-4xl mx-auto">
-        <h2 class="text-5xl font-black italic mb-20 text-center" style="color: var(--gold);">INSTALLATION GUIDE</h2>
+    <!-- STATS -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">12.41</span>
+            <span class="stat-label">Build Version</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">C2S2</span>
+            <span class="stat-label">Season</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Verified Safe</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">FREE</span>
+            <span class="stat-label">Always</span>
+        </div>
+    </div>
 
-        <div class="space-y-8">
-            <div class="glass-panel p-10 reveal">
-                <h3 class="text-sm font-bold mb-4 italic uppercase tracking-widest" style="color: var(--gold);">01. Add-on Assets</h3>
-                <p class="text-slate-400 mb-6">Download the custom skin pack components required for this build.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://drive.google.com/file/d/1Ikh-CZhOCgWyWAY13Ai15KD7ANAC0BpN/view?usp=sharing" class="px-6 py-3 border border-white/10 hover:border-yellow-500 transition uppercase text-xs tracking-widest">Skin Pack Part 1</a>
-                    <a href="https://drive.google.com/file/d/1rOtAte3iybrf7Ux2XnABry9ARVSAjnId/view?usp=sharing" class="px-6 py-3 border border-white/10 hover:border-yellow-500 transition uppercase text-xs tracking-widest">Skin Pack Part 2</a>
+    <!-- INSTALL GUIDE -->
+    <section class="section" id="install">
+        <p class="section-label">Getting Started</p>
+        <h2 class="section-title">Installation Guide</h2>
+
+        <div id="assets">
+            <div class="card reveal">
+                <div class="card-number">01 &mdash; Download</div>
+                <div class="card-title">Download the Build</div>
+                <p class="card-text">Download the full Project Wraith 12.41 build using the button below. Extract the zip to your preferred location.</p>
+                <div class="card-links">
+                    <a href="https://cdn.cbn.lol/12.41" class="card-link">Download v12.41</a>
                 </div>
             </div>
 
-            <div class="glass-panel p-10 reveal">
-                <h3 class="text-sm font-bold mb-4 italic uppercase tracking-widest" style="color: var(--gold);">02. Integration</h3>
-                <p class="text-slate-400 leading-relaxed">
-                    1. Open the <b>12.41 Fortnite Folder</b>.<br>
-                    2. Navigate to: <code style="color: var(--gold);" class="font-mono">FortniteGame > Content > Paks</code>.<br>
-                    3. Paste both downloaded skin pack files into the <b>Paks</b> folder.<br>
-                    4. Close the directory and restart your 12.41 launcher to apply assets.
+            <div class="card reveal">
+                <div class="card-number">02 &mdash; Add-on Assets</div>
+                <div class="card-title">Skin Pack Components</div>
+                <p class="card-text">Download the custom skin pack components required for this build. Both parts are required.</p>
+                <div class="card-links">
+                    <a href="https://drive.google.com/file/d/1Ikh-CZhOCgWyWAY13Ai15KD7ANAC0BpN/view?usp=sharing" class="card-link">Skin Pack Part 1</a>
+                    <a href="https://drive.google.com/file/d/1rOtAte3iybrf7Ux2XnABry9ARVSAjnId/view?usp=sharing" class="card-link">Skin Pack Part 2</a>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">03 &mdash; Integration</div>
+                <div class="card-title">Install the Skin Packs</div>
+                <p class="card-text">
+                    1. Open your <b>12.41 Fortnite</b> folder.<br><br>
+                    2. Navigate to <code>FortniteGame › Content › Paks</code>.<br><br>
+                    3. Paste both skin pack files into the <b>Paks</b> folder.<br><br>
+                    4. Restart your launcher to apply.
                 </p>
             </div>
 
-            <div class="glass-panel p-8 security-banner reveal">
-                <h4 class="font-bold text-red-500 mb-2 flex items-center gap-2 text-sm uppercase tracking-widest">
-                    Security Disclosure
-                </h4>
-                <p class="text-sm text-slate-400">Due to the modification of game pak files, some antivirus software may incorrectly flag this build as a "Trojan" or "Virus." This is a <b>False Positive</b> common with private server assets and custom community content. These files are verified safe for use within Project Wraith.</p>
+            <div class="security-card reveal">
+                <div class="security-title">⚠ Security Disclosure</div>
+                <p class="security-text">Due to the modification of game pak files, some antivirus software may flag this build as a threat. This is a <b>false positive</b> common with private server assets and custom community content. All files are verified safe for use within Project Wraith.</p>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">PROJECT WRAITH</div>
+        <div class="footer-text">The Agency Protocol &nbsp;·&nbsp; v12.41 &nbsp;·&nbsp; Community Build</div>
+    </footer>
+
     <script>
         gsap.registerPlugin(ScrollTrigger);
-        gsap.from("#hero-content", { duration: 1.5, opacity: 0, y: 50, ease: "power4.out" });
+        gsap.from("#hero-content > *", {
+            duration: 1.2,
+            opacity: 0,
+            y: 40,
+            stagger: 0.15,
+            ease: "power4.out",
+            delay: 0.3
+        });
         gsap.utils.toArray('.reveal').forEach((el) => {
             gsap.from(el, {
-                scrollTrigger: { trigger: el, start: "top 85%" },
-                duration: 1, opacity: 0, y: 30, ease: "power2.out"
+                scrollTrigger: { trigger: el, start: "top 88%" },
+                duration: 0.9,
+                opacity: 0,
+                y: 25,
+                ease: "power2.out"
             });
         });
     </script>
